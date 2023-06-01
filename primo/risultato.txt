@@ -1,0 +1,17 @@
+nome studente: Matteo 
+totale operazioni: 2
+operazioni corrette: 1
+operazioni sbagliate: 1
+voto finale: 5.0
+correzione delle risposte sbagliate: 10 * 20 = 200
+nome studente: Federico 
+totale operazioni: 2
+operazioni corrette: 1
+operazioni sbagliate: 1
+voto finale: 5.0
+correzione delle risposte sbagliate: 10 / 2 = 5.0
+nome studente: Andrea 
+totale operazioni: 1
+operazioni corrette: 1
+operazioni sbagliate: 0
+voto finale: 10.0
