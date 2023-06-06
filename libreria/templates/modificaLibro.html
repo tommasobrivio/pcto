@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body style="margin: 1%;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{%url 'homePageAdmin'%}">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span> 
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="utentiNav nav-item">
+                        <a class="nav-link active" aria-current="page"  href="{%url 'utenti'%}">Utenti</a>
+                    </li>
+                    <li class="libriNav nav-item">
+                        <a class="nav-link active" aria-current="page" href="{%url 'libri'%}">Libri</a>
+                    </li>
+                    <li class="libriNav nav-item">
+                        <a class="nav-link active" aria-current="page" href="{%url 'prestiti'%}">Prestiti</a>
+                    </li>
+                </ul>
+                <form action="{% url 'logout'%}" class="d-flex">
+                    <input type="submit" value="Logout" class="btn btn-outline-dark">
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <br>
+    <div class="container mt-5" style="margin-left:35%">
+
+        <div class="card text-white bg-primary mb-3" style="max-width: 18rem; margin-left: 8%;">
+            <div class="card-header">MODIFICA LIBRO</div>
+            <div class="card-body">
+                <table>
+                    <tr>
+                        <td>Titolo: </td>
+                        <td><input type="text" id="titolo" name="titolo" required class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>Autore: </td>
+                        <td><input type="text" id="autore" name="autore" required class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>Categoria: </td>
+                        <td><input type="text" id="categoria" name="categoria" required class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>Pagine: </td>
+                        <td><input type="text" id="nPagine" name="nPagine" required class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>Copie massime: </td>
+                        <td><input type="text" id="nCopie" name="nCopie" required class="form-control"></td>
+                    </tr>
+
+                </table>
+                <input type="button" value="Salva" class="save btn btn-outline-light">
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="{%static 'plugin/sweetalert/sweetalert2.all.min.js'%}"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#titolo').val('{{libro.titolo}}')
+        $('#autore').val('{{libro.autore}}')
+        $('#categoria').val('{{libro.categoria}}')
+        $('#nPagine').val('{{libro.nPagina}}')
+        $('#nCopie').val('{{libro.nCopieMax}}')
+
+        $('.save').click(function () {
+            if ($('#titolo').val() == '' || $('#autore').val() == '' || $('#categoria').val() == '') {
+                Swal.fire('Ti manca un campo da inserire').then((result__) => {
+                    return false
+                })
+            }
+            else if (isNaN(document.getElementById('nPagine').value)) {
+                Swal.fire('Il numero di pagine deve essere un numero').then((result__) => {
+                    return false
+                })
+            }
+            else if (document.getElementById('nPagine').value < 100) {
+                Swal.fire('Il numero di pagine deve essere maggiore di 100').then((result__) => {
+                    return false
+                })
+            }
+            else if (document.getElementById('nCopie').value <= 0) {
+                Swal.fire('Il numero di copie deve essere maggiore di 0').then((result__) => {
+                    return false
+                })
+            }
+            else ($.ajax(
+                {
+                    type: "POST",
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    url: "{% url 'salvaLibro' %}?id= {{libro.id}}",
+                    success: function (result) {
+                        if (!result.operazione) {
+                            Swal.fire('Non sei riuscito a salvare').then((result__) => {
+                                return false
+                            })
+                        }
+                        else {
+                            location.href = '{% url "libri" %}'
+                        }
+                    },
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify({
+                        'titolo': $('#titolo').val(),
+                        'autore': $('#autore').val(),
+                        'categoria': $('#categoria').val(),
+                        'nPagine': $('#nPagine').val(),
+                        'nCopie': $('#nCopie').val(),
+                    })
+                })
+            )
+        })
+    })
+</script>
+
+</html>
