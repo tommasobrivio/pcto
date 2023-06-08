@@ -1,0 +1,6 @@
+-boot strap 5
+-how to center css
+-font awesome
+-cdn per ajax e tutti link per includere librerie
+-moment per date
+-sweet alert
