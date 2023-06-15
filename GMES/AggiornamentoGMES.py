@@ -60,20 +60,20 @@ def controllaFile(lines):
 
                 listaTabelle[nomeTabella] = Tabella(nomeTabella) 
                 leggiColonne=True
-                crea=l
+                crea=l+'\n'
                 leggiCreaSql=True
 
         elif l.find("CREATE PROCEDURE")>-1:
             l = l.replace('\n', '').replace('\t', '')
             nomeProcedura=l.split(' ')[2]
-            procedura+=l
+            procedura+=l+'\n'
             leggiProcedura=True
 
         elif l.find("CREATE VIEW") > -1:
             l = l.replace('\n', '').replace('\t', '')
             nomeView=l.split('.')[1].replace('[','')
             nomeView=nomeView.replace(']','')
-            view+=l
+            view+=l+'\n'
             leggiView=True
 
         elif l.find("GO")>-1:
@@ -91,7 +91,7 @@ def controllaFile(lines):
 
         elif leggiProcedura==True:
             l = l.replace('\n', '').replace('\t', '')
-            procedura+=l
+            procedura+=l+'\n'
 
         elif l.find("ALTER TABLE") >-1:
             l = l.replace('\n', '').replace('\t', '')
@@ -105,12 +105,12 @@ def controllaFile(lines):
         elif l.find("PRIMARY KEY") > -1: 
             l = l.replace('\n', '').replace('\t', '')
             leggiColonne=False     
-            crea+=l 
+            crea+=l +'\n'
 
         elif l.find("PRIMARY KEY") == -1:
             l = l.replace('\n', '').replace('\t', '')
             if leggiColonne==True:
-                crea+=l
+                crea+=l+'\n'
                 nomeColonna=l.split(' ')[0].replace('[','')
                 nomeColonna=nomeColonna.replace(']','')
                 tipoColonna=l.split(' ')[1].replace('[','')
@@ -132,6 +132,8 @@ def controllaFile(lines):
                     nullable=1
 
                 listaTabelle[nomeTabella].listaColonne[nomeColonna]= Campo(nomeColonna,tipoColonna,identity, nullable, grandezza)
+            elif leggiCreaSql==True:
+                crea+=l+'\n'
 
          
     return listaTabelle, listaProcedure, listaview
@@ -153,13 +155,14 @@ GMES_Ultimo=config['config']['gmes_ultimo']
 Cartella_Salvataggio=config['config']['cartella_salvataggio']
 
 
-f = open(GMES_Sorgente, "r", encoding='windows-1256')
+f = open(GMES_Sorgente, "r")
+
 lines  = f.readlines()
 
 tabelleSorgente, procedureSorgente, viewsSorgente = controllaFile(lines)
 
 
-f = open(GMES_Ultimo, "r", encoding='windows-1256')
+f = open(GMES_Ultimo, "r")
 lines  = f.readlines()
 
 tabelleFinali, procedureFinali, viewsFinali= controllaFile(lines)
