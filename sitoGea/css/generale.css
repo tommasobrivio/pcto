@@ -1,0 +1,105 @@
+.testo {
+    font-family: Antipasto;
+    font-size: 20px;
+    color: #3a537e
+}
+
+.link {
+    text-decoration: none !important;
+    outline: none !important;
+    color: #3a537e !important
+}
+
+.buttons:hover {
+    opacity: 0.5
+}
+
+.buttons {
+    background-color: rgba(50, 50, 153, 0.875);
+    color: white !important;
+    border-radius: 8px
+}
+
+.contact {
+    margin: 1%;
+}
+
+.contattiSotto{
+    background-image: url("../images/home/Codice_binario_footer_72.png");
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    background-color: rgba(71,81,154,255);
+    color: white;
+}
+
+.corrente{
+    padding-bottom: 5px;
+    border-bottom: 4px solid #94b7df;
+}
+
+.nav-item:hover{
+    padding-bottom: 5px;
+    border-bottom: 4px solid #94b7df;
+}
+
+.form {
+    background-image: url("../images/home/Cerchio_sx_form_72.png"), url("../images/home/Rametti_form_72.png"), url("../images/home/Cerchio_dx_form_72.png");
+    background-position: left top, left 90%, right bottom;
+    background-repeat: no-repeat, no-repeat, no-repeat;
+
+    padding: 15%
+}
+
+.blu-div {
+    background-color: rgba(50, 50, 153, 0.875);
+    color: white !important;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.blu-div:hover {
+    opacity: 0.5
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.dissolvenza{
+    opacity:1 !important;
+    transition: 3s;
+}
+
+.headServizi{
+    background-image: url("../images/servizi/Cerchi_blu_servizi_72.png"), url("../images/servizi/Codice_binario1_servizi_72.png");
+    background-repeat: no-repeat, no-repeat;
+    background-position: left 70%, right bottom;
+
+}
+
+.formIndustria {
+    background-image: url("../images/servizi/Codice_binario2_servizi_72.png"), url("../images/home/Cerchio_sx_form_72.png"), url("../images/home/Rametti_form_72.png"), url("../images/home/Cerchio_dx_form_72.png");
+    background-position: right top, left top, left 90%, right bottom;
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+    padding: 15%
+}
+
+.formGestionali{
+    margin-top: 3%;
+    background-image: url("../images/home/Cerchio_sx_form_72.png"), url("../images/home/Rametti_form_72.png"), url("../images/home/Cerchio_dx_form_72.png");
+    background-position: left top, left 90%, right bottom;
+    background-repeat:  no-repeat, no-repeat, no-repeat;
+    padding: 15%
+}
+
+.formCustom{
+    margin-top: 3%;
+    background-image: url("../images/home/Cerchio_sx_form_72.png"), url("../images/home/Rametti_form_72.png"), url("../images/home/Cerchio_dx_form_72.png");
+    background-position: left top, left 90%, right bottom;
+    background-repeat:  no-repeat, no-repeat, no-repeat;
+    padding: 12%
+}
