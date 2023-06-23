@@ -4,3 +4,5 @@
 -cdn per ajax e tutti link per includere librerie
 -moment per date
 -sweet alert
+-color picker from image
+-figlet
